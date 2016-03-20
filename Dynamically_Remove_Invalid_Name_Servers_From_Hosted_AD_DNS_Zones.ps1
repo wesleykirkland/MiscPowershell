@@ -1,4 +1,6 @@
 #This script will dynamically remove invalid name servers from AD Integrated DNS zones that are non-default zones
+#The script will scan all AD Integrated DNS Zones and exclude default zones such as Trust Anchors and your msdsc zone(s), it will then attempt to resolve DNS for each entry.
+#If DNS can not be resolved it will remove it from the nameservers entry array
 #Author Wesley Kirkland
 #Last Updated 03-19-2016
 
