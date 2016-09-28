@@ -68,7 +68,6 @@ Function Run-SQLQuery {
             Write-Verbose 'Setting SQL to use SSPI'
             $SqlConnection.ConnectionString = "Server=$ServerInstance;Database=$Database;Integrated Security=True"
         }
-        $SqlConnection.ConnectionString
 
         $SqlCmd = New-Object System.Data.SqlClient.SqlCommand 
         $SqlCmd.Connection = $SqlConnection 
