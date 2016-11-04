@@ -21,7 +21,7 @@ Function Test-SQLConnection {
             $connectionString = "Data Source = $ServerInstance;Initial Catalog=master;User ID = $($cred.UserName);Password = $($cred.GetNetworkCredential().password);"
         } else {
             Write-Verbose 'Setting SQL to use SSPI'
-            $connectionString = "Data Source=$Server;Integrated Security=true;Initial Catalog=master;Connect Timeout=3;"
+            $connectionString = "Data Source=$ServerInstance;Integrated Security=true;Initial Catalog=master;Connect Timeout=3;"
         }
 
         $sqlConn = New-Object ("Data.SqlClient.SqlConnection") $connectionString
