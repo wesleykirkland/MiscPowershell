@@ -2,6 +2,7 @@
 # It will rename existing tagged vol
 
 import boto3
+import time
 
 
 # Function that will convert a EC2 object list to a dict format
@@ -9,21 +10,33 @@ def make_tag_dict(ec2_object):
     # Given an tagable ec2_object, return dictionary of existing tags
     # From https://github.com/boto/boto3/issues/264#issuecomment-148735429
     tag_dict = {}
-    if ec2_object['Tags'] is None: return tag_dict
+    if ec2_object['Tags'] is None:
+        return tag_dict
     for tag in ec2_object['Tags']:
         tag_dict[tag['Key']] = tag['Value']
     return tag_dict
 
+
 def lambda_handler(event, context):
-    print('Running from Lambda')
     arn = context.invoked_function_arn
-    aws_account_number = arn.split(':')[4]
     region = arn.split(':')[3]
 
     # Build a ec2 object
-    ec2 = boto3.client('ec2', region_name=region)
+    while True:
+            try:
+                ec2 = boto3.client('ec2', region_name=region)
+                break
+            except Exception as e:
+                print(e)
+                time.sleep(1)
 
-    ec2instances = ec2.describe_instances()  # Find all the instances in the account
+    while True:
+        try:
+            ec2instances = ec2.describe_instances()  # Find all the instances in the account
+            break
+        except Exception as e:
+            print(e)
+            time.sleep(1)
 
     # instance = ec2instances['Reservations'][1]
     for instance in ec2instances['Reservations']:
@@ -38,14 +51,20 @@ def lambda_handler(event, context):
         for volume in instance_volumes:
             volume_tag = instance_name + '(' + volume['DeviceName'] + ')'  # Create the volume name tag
             # Tag the Volume
-            ec2.create_tags(
-                Resources=[
-                    volume['Ebs']['VolumeId']
-                ],
-                Tags=[
-                    {
-                        'Key': 'Name',
-                        'Value': volume_tag
-                    }
-                ]
-            )
+            while True:
+                try:
+                    ec2.create_tags(
+                        Resources=[
+                            volume['Ebs']['VolumeId']
+                        ],
+                        Tags=[
+                            {
+                                'Key': 'Name',
+                                'Value': volume_tag
+                            }
+                        ]
+                    )
+                    break
+                except Exception as e:
+                    print(e)
+                    time.sleep(1)
