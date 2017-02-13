@@ -45,14 +45,18 @@ function Run-NetezzaSQLQuery {
         if ($SQLConnection.State -ne [Data.ConnectionState]::Open) {
             Write-Output "Connection to SQL DB not open"
         } else {
-            $SqlCmd =  $SQLConnection.CreateCommand()
-            $SqlCmd.CommandText = $Query
-            $SqlAdapter = $SqlCmd.ExecuteReader()
+            Try {
+                $SqlCmd =  $SQLConnection.CreateCommand()
+                $SqlCmd.CommandText = $Query
+                $SqlAdapter = $SqlCmd.ExecuteReader()
 
-            #Load the results into a datatable
-            $DataSet = New-Object System.Data.DataTable
-            $DataSet.Load($SqlAdapter)
-            $DataSet
+                #Load the results into a datatable
+                $DataSet = New-Object System.Data.DataTable
+                $DataSet.Load($SqlAdapter)
+                $DataSet
+            } Catch {
+                Write-Warning 'Unable to query and return the results back'
+            }
         }
     }
 }
