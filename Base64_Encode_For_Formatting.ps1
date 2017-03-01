@@ -9,4 +9,4 @@ Write-Output 'Outputting the Base64 encoded text to your clipboard'
 $Base64 | clip
 
 Write-Output 'Use the following to decode it on the target system'
-[System.Convert]::FromBase64String($Content)
+[System.Convert]::FromBase64String($Base64)
