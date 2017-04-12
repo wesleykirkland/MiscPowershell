@@ -6,7 +6,7 @@
 .PARAMETER ComputerName
 	Name of the Server to query
 .PARAMETER Log
-	Name of the Server to query
+	Name of the Log to query
 .EXAMPLE
 	Event-Log-QA.PS1 <server>
 .NOTES
