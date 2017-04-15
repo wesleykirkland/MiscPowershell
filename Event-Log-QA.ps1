@@ -1,17 +1,18 @@
 ﻿<#
-.SYNOPSYS
-	.
+.SYNOPSIS
+	Get errors in a select event log
 .DESCRIPTION
-	.
+	Checks to see if the computer is online then gets the requested event logs
 .PARAMETER ComputerName
 	Name of the Server to query
 .PARAMETER Log
-	Name of the Log to query
+	Name of the Log to query, default is All
 .EXAMPLE
 	Event-Log-QA.PS1 <server>
 .NOTES
 	Script to create local admins group for server builds and / or add accounts to the group
-	Wesley Kirkland 12/05/2014
+	Initial Wesley Kirkland 12/05/2014
+    Update C. David Littlejohn 04/14/2017
 #>
 
 [CmdletBinding()]
