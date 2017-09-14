@@ -1,24 +1,24 @@
 function ConvertTo-NameCase ([string[]]$Names) {
-<#
-.SYNOPSIS
-ConvertTo-NameCase takes any english name variation and converts it to the correct case format
+    <#
+    .SYNOPSIS
+    ConvertTo-NameCase takes any english name variation and converts it to the correct case format
 
-.DESCRIPTION
-ConvertTo-NameCase takes any english name variation and converts it to the correct case, it will handle upper, lower, hyphens, and apostrophe 
+    .DESCRIPTION
+    ConvertTo-NameCase takes any english name variation and converts it to the correct case, it will handle upper, lower, hyphens, and apostrophe 
 
-.PARAMETER Name
-Name The name you wish to correct in the form of a string
+    .PARAMETER Name
+    Name The name you wish to correct in the form of a string
 
-.EXAMPLE
-ConvertTo-NameCase -Names "kevin"
-#Output = Kevin
-ConvertTo-NameCase -Names "kevin" "o'leary"
-#Output = Kevin
-#O'Leary
+    .EXAMPLE
+    ConvertTo-NameCase -Names "kevin"
+    #Output = Kevin
+    ConvertTo-NameCase -Names "kevin" "o'leary"
+    #Output = Kevin
+    #O'Leary
 
-.NOTES
-General notes
-#>
+    .NOTES
+    General notes
+    #>
     foreach ($Name in $Names) {
         $NameArray = $Name.ToCharArray() #Get a Character array, basically a split
         #Loop through the array and do the correct case
